@@ -1,0 +1,43 @@
+// Place all the styles related to the user_progresses controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.progress-default {
+	background: #CCCCCC;
+	color: #fff;
+	margin-left: 5px;
+	border-radius: 5px;
+	padding: 7px 12px;
+}
+
+.progress-green {
+	background: #99D1B7;
+	color: #fff;
+	margin-left: 5px;
+	border-radius: 5px;
+	padding: 7px 12px;
+}
+
+.progress-yellow {
+	background: #FFF6B9;
+	color: #fff;
+	margin-left: 5px;
+	border-radius: 5px;
+	padding: 7px 12px;
+}
+
+.progress-orange {
+	background: #FDC08E;
+	color: #fff;
+	margin-left: 5px;
+	border-radius: 5px;
+	padding: 7px 12px;
+}
+
+.progress-red {
+	background: #F79273;
+	color: #fff;
+	margin-left: 5px;
+	border-radius: 5px;
+	padding: 7px 12px;
+}

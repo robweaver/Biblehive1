@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User Name:</strong>
+  <%= @user_progress.user.first_name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_progress.user_id %>
+</p>
+
+<p>
+  <strong>Book no:</strong>
+  <%= @user_progress.book_no %>
+</p>
+
+<p>
+  <strong>Chapter no:</strong>
+  <%= @user_progress.chapter_no %>
+</p>
+
+<p>
+  <strong>Last read:</strong>
+  <%= @user_progress.last_read %>
+</p>
+
+<%= link_to 'Edit', edit_user_progress_path(@user_progress) %> |
+<%= link_to 'Back', user_progresses_path %>

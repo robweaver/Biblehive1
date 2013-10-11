@@ -1,5 +1,11 @@
 Biblehive::Application.routes.draw do
 
+  resources :user_progresses
+
+  resources :chapters
+
+  resources :books
+
   devise_for :users
   root to:"static_pages#home"
 
