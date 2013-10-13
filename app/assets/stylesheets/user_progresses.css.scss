@@ -2,42 +2,245 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+	background: rgb(234, 234, 234);
+}
+
+/* Book link classes */
+
+.book-links li {
+	display: inline;
+}
+
+
+
+
+
+
+/* Progress box classes */
+
 .progress-default {
+	position: relative;
 	background: #CCCCCC;
 	color: #fff;
-	margin-left: 5px;
+	margin-top: 10px;
+	margin-left: 10px;
 	border-radius: 5px;
-	padding: 7px 12px;
+	float: left;
+	width: 70px;
+	height: 55px;
 }
 
 .progress-green {
+	position: relative;
 	background: #99D1B7;
 	color: #fff;
-	margin-left: 5px;
+	margin-top: 10px;
+	margin-left: 10px;
 	border-radius: 5px;
-	padding: 7px 12px;
+	float: left;
+	width: 70px;
+	height: 55px;
 }
 
 .progress-yellow {
+	position: relative;
 	background: #FFF6B9;
 	color: #fff;
-	margin-left: 5px;
+	margin-top: 10px;
+	margin-left: 10px;
 	border-radius: 5px;
-	padding: 7px 12px;
+	float: left;
+	width: 70px;
+	height: 55px;
 }
 
 .progress-orange {
+	position: relative;
 	background: #FDC08E;
 	color: #fff;
-	margin-left: 5px;
+	margin-top: 10px;
+	margin-left: 10px;
 	border-radius: 5px;
-	padding: 7px 12px;
+	float: left;
+	width: 70px;
+	height: 55px;
 }
 
 .progress-red {
+	position: relative;
 	background: #F79273;
 	color: #fff;
-	margin-left: 5px;
+	margin-top: 10px;
+	margin-left: 10px;
 	border-radius: 5px;
-	padding: 7px 12px;
+	float: left;
+	width: 70px;
+	height: 55px;
+}
+
+/* Progress span classes */
+
+.progress-default span {
+	width:100%;
+	height:100%;
+	position:absolute;
+	z-index:2;
+	top:0px;
+	left:0px;
+	text-align: center;
+	line-height: 55px;
+}
+
+.progress-green span {
+	width:100%;
+	height:100%;
+	position:absolute;
+	z-index:2;
+	top:0px;
+	left:0px;
+	text-align: center;
+	line-height: 55px;
+}
+
+.progress-yellow span {
+	width:100%;
+	height:100%;
+	position:absolute;
+	z-index:2;
+	top:0px;
+	left:0px;
+	text-align: center;
+	line-height: 55px;
+}
+
+.progress-orange span {
+	width:100%;
+	height:100%;
+	position:absolute;
+	z-index:2;
+	top:0px;
+	left:0px;
+	text-align: center;
+	line-height: 55px;
+}
+
+.progress-red span {
+	width:100%;
+	height:100%;
+	position:absolute;
+	z-index:2;
+	top:0px;
+	left:0px;
+	text-align: center;
+	line-height: 55px;
+}
+
+/* Progress hover classes */
+
+.progress-default :hover {
+	background: rgb(234, 234, 234);
+	border: 2px solid #CCCCCC;
+	border-radius: 5px;
+	line-height: 53px;
+}
+
+.progress-green :hover {
+	background: rgb(234, 234, 234);
+	border: 2px solid #99D1B7;
+	border-radius: 5px;
+	line-height: 53px;
+}
+
+.progress-yellow :hover {
+	background: rgb(234, 234, 234);
+	border: 2px solid #FFF6B9;
+	border-radius: 5px;
+	line-height: 53px;
+}
+
+.progress-orange :hover {
+	background: rgb(234, 234, 234);
+	border: 2px solid #FDC08E;
+	border-radius: 5px;
+	line-height: 53px;
+}
+
+.progress-red :hover {
+	background: rgb(234, 234, 234);
+	border: 2px solid #F79273;
+	border-radius: 5px;
+	line-height: 53px;
+}
+
+/*  Progress a classes */
+
+.progress-default a {
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.progress-default a :hover {
+	color: #CCCCCC;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.progress-green a {
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.progress-green a :hover {
+	color: #99D1B7;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.progress-yellow a {
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.progress-yellow a :hover {
+	color: #FFF6B9;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.progress-orange a {
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.progress-orange a :hover {
+	color: #FDC08E;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.progress-red a {
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.progress-red a :hover {
+	color: #F79273;
+	font-family: 'Lato', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
 }

@@ -1,5 +1,6 @@
 <h1>Listing user_progresses</h1>
 
+<!--
 <table>
   <thead>
     <tr>
@@ -30,45 +31,73 @@
 
 <br>
 
-
 <%= link_to 'New User progress', new_user_progress_path %>
+-->
+
+
+
+<!-- Quick Links -->
+
+<!-- Old Testament -->
 
 <div class="page-header">
-  <h3>Matthew</h3>
+  <h1>Old Testament</h1>
 </div>
 <div class="row">
   <div class="col-md-12">
 
-    <% @user_progresses.each do |user_progress| %>
-    <span class="<%= "progress-green" if user_progress.last_read <= Time.now
-        %>"><%= user_progress.chapter_no if user_progress.book_no = 40 %></span>
-
-    <% end %>
+    <ul class="book-links">
+      <% Book.where("book_no <= 39").each do |book| %>
+        
+          <li><a href="#<%= book.book_name.gsub(/\s+/, "") %>"><%= book.book_name %></a></li>
+        
+      <% end %>
+    </ul>
 
   </div>
 </div>
 
+<!-- New Testament -->
+
 <div class="page-header">
-  <h3>Matthew</h3>
+  <h1>New Testament</h1>
 </div>
 <div class="row">
   <div class="col-md-12">
 
-    <% @user_progresses.each do |user_progress| %>
-    <% if defined?(user_progress.last_read) then vartime = (user_progress.last_read - Time.now).to_i / 1.day
-      elsif vartime = 1
-      end
-    %>
-    <span class="<%= if vartime == 1 then "progress-default"
-                    elsif vartime >= -365 then "progress-green" 
-                    elsif vartime >= -730 then "progress-yellow"
-                    elsif vartime >= -1095 then "progress-orange"
-                    elsif vartime <= -1096 then "progress-red"
-
-                        
-                    end %>"><%= user_progress.chapter_no if user_progress.book_no = 40 %></span>
-
-    <% end %>
+    <ul class="book-links">
+      <% Book.where("book_no >= 40").each do |book| %>
+        
+          <li><a href="#<%= book.book_name.gsub(/\s+/, "") %>"><%= book.book_name %></a></li>
+        
+      <% end %>
+    </ul>
 
   </div>
 </div>
+
+<!-- Start Books -->
+
+<% Book.all.each do |book| %>
+  <div class="page-header">
+    <h1 id="<%= book.book_name.gsub(/\s+/, "") %>"><%= book.book_name %></h1>
+    <a href="#Top">Top</a>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <% UserProgress.where(book_no: book.book_no).each do |user_progress| %>
+        <% if user_progress.last_read != nil then vartime = (user_progress.last_read - Time.now).to_i / 1.day
+        elsif vartime = 1
+        end
+        %>
+        <span class="<%= if vartime == 1 then "progress-default"
+                            elsif vartime >= -365 then "progress-green" 
+                            elsif vartime >= -730 then "progress-yellow"
+                            elsif vartime >= -1095 then "progress-orange"
+                            elsif vartime <= -1096 then "progress-red" 
+                          end %>"><%= link_to content_tag(:span, user_progress.chapter_no), user_progress %></span>
+      <% end %>
+    </div>
+  </div>
+<% end %>
