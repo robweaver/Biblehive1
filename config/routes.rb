@@ -1,5 +1,6 @@
 Biblehive::Application.routes.draw do
 
+  get "profiles/show"
   resources :user_progresses
 
   resources :chapters
