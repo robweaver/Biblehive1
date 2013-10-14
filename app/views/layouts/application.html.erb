@@ -46,7 +46,7 @@
     </form>
     <ul class="nav navbar-nav navbar-right">
       <% if user_signed_in? %>
-        <li><%= link_to current_user.first_name + " " + current_user.last_name, edit_user_registration_path %></li>
+        <li><%= link_to current_user.full_name, profile_path(current_user.id) %></li>
         <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
       <% else %>
         <li><%= link_to "Sign In", new_user_session_path %></li>
@@ -64,10 +64,21 @@
   </div><!-- /.navbar-collapse -->
 </nav>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
 <div class="container">
+
+<% if flash[:notice] %>
+<div class="alert alert-success alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <%= notice %>
+</div>
+<% end %>
+
+<% if flash[:alert] %>
+<div class="alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <%= alert %>
+</div>
+<% end %>
 
 <%= yield %>
 

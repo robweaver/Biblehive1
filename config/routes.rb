@@ -1,6 +1,7 @@
 Biblehive::Application.routes.draw do
 
-  get "profiles/show"
+  get '/profile/:id', to: 'profiles#show', as: :profile
+
   resources :user_progresses
 
   resources :chapters
@@ -12,6 +13,7 @@ Biblehive::Application.routes.draw do
 
   get "static_pages/home"
   get "static_pages/help"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
