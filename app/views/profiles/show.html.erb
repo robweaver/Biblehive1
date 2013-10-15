@@ -4,3 +4,9 @@
 <div class="page-header">
 	<h1><%= @user.full_name %></h1>
 </div>
+
+<h3>What i last read</h3>
+<% UserProgress.where(user_id: params[:id]).where("last_read IS NOT NULL").order("last_read DESC").limit(5).each do |user_progress|%>
+	<p><strong><%= user_progress.book.book_name %> <%= user_progress.chapter_no %></strong></p>
+	<p><%= time_ago_in_words(user_progress.last_read) %> ago</p>
+<% end %>
