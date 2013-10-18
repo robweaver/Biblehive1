@@ -11,6 +11,39 @@
   </div>
 </div>
 
+<%= form_for(@user_progress) do |f| %>
+  <% if @user_progress.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user_progress.errors.count, "error") %> prohibited this user_progress from being saved:</h2>
+
+      <ul>
+      <% @user_progress.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :book_no %><br>
+    <%= f.number_field :book_no %>
+  </div>
+  <div class="field">
+    <%= f.label :chapter_no %><br>
+    <%= f.number_field :chapter_no %>
+  </div>
+  <div class="field">
+    <%= f.label :last_read %><br>
+    <%= f.date_field :last_read %>
+  </div>
+  <div class="action">
+    <%= f.submit %>
+  </div>
+<% end %>
 
 
 
@@ -22,10 +55,14 @@
 <%= link_to 'Edit', edit_user_progress_path(@user_progress) %> |
 <%= link_to 'Back', user_progresses_path %>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="page-header">
+
+<div class="page-header">
       <h1>Reading Histroy</h1>
     </div>
+<div class="row">
+  <div class="col-md-12">
+    <% UserProgress.where(user_id: current_user.id).where(book_no: @user_progress.book_no).where(chapter_no: @user_progress.chapter_no).each do |user_progress| %>
+     <%= user_progress.last_read %>
+     <% end %>
   </div>
 </div>

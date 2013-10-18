@@ -1,12 +1,12 @@
-<h1>Profiles#show</h1>
-<p>Find me in app/views/profiles/show.html.erb</p>
-
 <div class="page-header">
-	<h1><%= @user.full_name %></h1>
+	<h1>My Profile Page</h1>
 </div>
 
-<h3>What i last read</h3>
-<% UserProgress.where(user_id: params[:id]).where("last_read IS NOT NULL").order("last_read DESC").limit(5).each do |user_progress|%>
-	<p><strong><%= user_progress.book.book_name %> <%= user_progress.chapter_no %></strong></p>
+<h3>What I've Been Reading</h3>
+
+<% profile_read = UserProgress.includes(:book,).where(user_id: params[:id]).where("last_read IS NOT NULL").order("last_read DESC").limit(5) %>
+
+<% profile_read.each do |user_progress|%>
+	<%= link_to "#{user_progress.book.book_name} #{user_progress.chapter_no}", chapter_path(user_progress.chapter_id) %>
 	<p><%= time_ago_in_words(user_progress.last_read) %> ago</p>
 <% end %>

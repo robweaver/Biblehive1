@@ -13,4 +13,6 @@ class User < ActiveRecord::Base
   	first_name + " " + last_name
   end
 
+  has_many :user_progresses
+
 end

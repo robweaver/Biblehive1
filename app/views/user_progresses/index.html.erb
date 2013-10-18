@@ -1,84 +1,53 @@
-<h1>Listing user_progresses</h1>
+<div class="page-header">
+  <h1>Your Bible Reading Progress</h1>
+</div>
 
-<!--
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Book no</th>
-      <th>Chapter no</th>
-      <th>Last read</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @user_progresses.each do |user_progress| %>
-      <tr>
-        <td><%= user_progress.user_id %></td>
-        <td><%= user_progress.book_no %></td>
-        <td><%= user_progress.chapter_no %></td>
-        <td><%= user_progress.last_read %></td>
-        <td><%= link_to 'Show', user_progress %></td>
-        <td><%= link_to 'Edit', edit_user_progress_path(user_progress) %></td>
-        <td><%= link_to 'Destroy', user_progress, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
 
 <%= link_to 'New User progress', new_user_progress_path %>
--->
 
+<% books = Book.where(nil).load %>
+<%# chapters = Chapter.where(nil).load %>
+<% chapters = Chapter.joins("LEFT JOIN 'user_progresses' ON user_progresses.chapter_id = chapters.id AND user_progresses.user_id = #{current_user.id}").select("chapters.*, user_progresses.chapter_id, user_progresses.user_id, user_progresses.last_read").load %>
 
+<% oldbook = books.select { |book| book.book_no <= 39 } %>
+<% newbook = books.select { |book| book.book_no >= 40 } %>
 
 <!-- Quick Links -->
+<ul id="myTab" class="nav nav-tabs">
+  <li><a href="#Old" data-toggle="tab">Old Testament</a></li>
+  <li class="active"><a href="#New" data-toggle="tab">New Testament</a></li>
+</ul>
+<br>
 
-<!-- Old Testament -->
 
-<div class="page-header">
-  <h1>Old Testament</h1>
-</div>
-<div class="row">
-  <div class="col-md-12">
-
+<div id="myTabContent" class="tab-content">
+  <!-- Old Testament -->
+  <div class="tab-pane fade" id="Old">
     <ul class="book-links">
-      <% Book.where("book_no <= 39").each do |book| %>
-        
-          <li><a href="#<%= book.book_name.gsub(/\s+/, "") %>"><%= book.book_name %></a></li>
-        
+      <% oldbook.each do |book| %>
+        <li><a href="#<%= book.book_name.gsub(/\s+/, "") %>"><%= book.book_name %></a></li>
       <% end %>
     </ul>
 
   </div>
-</div>
-
-<!-- New Testament -->
-
-<div class="page-header">
-  <h1>New Testament</h1>
-</div>
-<div class="row">
-  <div class="col-md-12">
-
+  <!-- New Testament -->
+    <div class="tab-pane fade active in" id="New">
     <ul class="book-links">
-      <% Book.where("book_no >= 40").each do |book| %>
-        
-          <li><a href="#<%= book.book_name.gsub(/\s+/, "") %>"><%= book.book_name %></a></li>
-        
+      <% newbook.each do |book| %>
+        <li><a href="#<%= book.book_name.gsub(/\s+/, "") %>"><%= book.book_name %></a></li>
       <% end %>
     </ul>
 
   </div>
-</div>
+
+</div><!-- /myTabContent -->
 
 <!-- Start Books -->
 
-<% Book.all.each do |book| %>
+<% user_progresses = UserProgress.where(user_id: current_user.id) %>
+
+
+<% books.each do |book| %>
   <div class="page-header">
     <h1 id="<%= book.book_name.gsub(/\s+/, "") %>"><%= book.book_name %></h1>
     <a href="#Top">Top</a>
@@ -86,18 +55,28 @@
   <div class="row">
     <div class="col-md-12">
 
-      <% UserProgress.where(book_no: book.book_no).each do |user_progress| %>
-        <% if user_progress.last_read != nil then vartime = (user_progress.last_read - Time.now).to_i / 1.day
-        elsif vartime = 1
-        end
-        %>
-        <span class="<%= if vartime == 1 then "progress-default"
-                            elsif vartime >= -365 then "progress-green" 
-                            elsif vartime >= -730 then "progress-yellow"
-                            elsif vartime >= -1095 then "progress-orange"
-                            elsif vartime <= -1096 then "progress-red" 
-                          end %>"><%= link_to content_tag(:span, user_progress.chapter_no), user_progress %></span>
-      <% end %>
+      <% current_chapter = chapters.select { |chapter| chapter.book_no == book.book_no } %>
+
+      <% current_chapter.each do |chapter| %>
+
+        <% if chapter.last_read != nil %> 
+                      <% vartime = ( (chapter.last_read).to_time - Time.now ).to_i / 1.day %>
+                    <% elsif %>
+                      <% vartime = 1 %>
+                    <%end %>
+                    <% if vartime == 1 %> 
+                      <span class="progress-default"><%= link_to content_tag(:span, chapter.chapter_no), chapter_path(chapter.id) %></span>
+                    <% elsif vartime >= -365 %>
+                      <span class="progress-green"><%= link_to content_tag(:span, chapter.chapter_no), chapter_path(chapter.id) %></span>
+                    <% elsif vartime >= -730 %>
+                      <span class="progress-yellow"><%= link_to content_tag(:span, chapter.chapter_no), chapter_path(chapter.id) %></span>         
+                    <% elsif vartime >= -1095 %>
+                      <span class="progress-orange"><%= link_to content_tag(:span, chapter.chapter_no), chapter_path(chapter.id) %></span> 
+                    <% elsif vartime <= -1096 %> 
+                      <span class="progress-red"><%= link_to content_tag(:span, chapter.chapter_no), chapter_path(chapter.id) %></span>
+                    <% end %>
+        
+      <% end %> 
     </div>
   </div>
 <% end %>

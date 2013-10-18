@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131010234618) do
+ActiveRecord::Schema.define(version: 20131016055249) do
 
   create_table "books", force: true do |t|
     t.integer  "book_no"
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(version: 20131010234618) do
     t.datetime "updated_at"
   end
 
+  add_index "books", ["book_name"], name: "index_books_on_book_name"
+  add_index "books", ["book_no"], name: "index_books_on_book_no"
+
   create_table "chapters", force: true do |t|
     t.integer  "book_no"
     t.integer  "chapter_no"
@@ -29,6 +32,9 @@ ActiveRecord::Schema.define(version: 20131010234618) do
     t.datetime "updated_at"
   end
 
+  add_index "chapters", ["chapter_no"], name: "index_chapters_on_chapter_no"
+  add_index "chapters", ["id"], name: "index_chapters_on_id"
+
   create_table "user_progresses", force: true do |t|
     t.integer  "user_id"
     t.integer  "book_no"
@@ -36,7 +42,10 @@ ActiveRecord::Schema.define(version: 20131010234618) do
     t.datetime "last_read"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "chapter_id"
   end
+
+  add_index "user_progresses", ["chapter_id"], name: "index_user_progresses_on_chapter_id"
 
   create_table "users", force: true do |t|
     t.string   "first_name"
